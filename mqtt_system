@@ -1,0 +1,57 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          mqtt_system
+# Should-Start:      networking
+# Required-Start:    $local_fs $remote_fs
+# Required-Stop:     $local_fs $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Home Automation toolkit
+# Description:       Debian init script for home automation
+### END INIT INFO
+#
+# Author:       Kevin Ross <contact@kevinross.name>
+#
+set -e
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/usr/bin/python
+
+test -x $DAEMON || exit 0
+
+if [ -r /etc/default/locale ]; then
+  . /etc/default/locale
+  export LANG LANGUAGE
+fi
+
+. /lib/lsb/init-functions
+
+case "$1" in
+  start)
+        log_daemon_msg "Starting Home Assistant Automation" "mqtt_system"
+        start-stop-daemon --quiet --pidfile /var/run/mqtt_system.pid --name mqtt_system --exec $DAEMON --chdir /root/scripts -b --start -- system.py || echo -n " already running"
+        log_end_msg $?
+  ;;
+  stop)
+        log_daemon_msg "Stopping Home Assistant Automation" "mqtt_system"
+        set +e
+        start-stop-daemon --stop --quiet --pidfile /var/run/mqtt_system.pid \
+                --name mqtt_system --retry 5
+        set -e
+        log_end_msg $?
+  ;;
+  status)
+        status_of_proc -p "$PIDFILE" "$DAEMON" mqtt_system && exit 0 || exit $?
+  ;;
+  restart|force-reload)
+        $0 stop
+        sleep 1
+        $0 start
+  ;;
+  *)
+        echo "Usage: /etc/init.d/mqtt_system {start|stop|restart|status}"
+        exit 1
+  ;;
+esac
+
+exit 0

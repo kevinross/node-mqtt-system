@@ -1,0 +1,12 @@
+[Unit]
+Requires=network-online.target
+After=network-online.target
+OnFailure=restart
+
+[Service]
+Type=simple
+WorkingDirectory=/root/scripts
+ExecStart=/usr/bin/python system.py
+
+[Install]
+WantedBy=multi-user.target

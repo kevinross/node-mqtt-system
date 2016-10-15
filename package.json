@@ -1,0 +1,28 @@
+{
+  "name": "mqtt_system",
+  "version": "1.0.0",
+  "description": "IoT framework for handling events and state changes",
+  "license": "BSD-3-Clause",
+  "author": "Kevin Ross <contact@kevinross.name> (http://kevinross.name)",
+  "files": [
+    "mqtt_system.js",
+    "jsmodules",
+    "mqtt_system",
+    "mqtt_system.service"
+  ],
+  "main": "mqtt_system",
+  "bin": {
+    "mqtt_system": "./mqtt_system.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevinross/node-mqtt-system.git"
+  },
+  "dependencies": {
+    "mqtt": "2.x" 
+  },
+  "bugs": {
+    "url": "https://github.com/kevinross/node-mqtt-system/issues"
+  },
+  "homepage": "https://github.com/kevinross/node-mqtt-system#readme"
+}
