@@ -15,7 +15,7 @@
 set -e
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
-DAEMON=/usr/bin/python
+DAEMON=/usr/bin/node
 
 test -x $DAEMON || exit 0
 
@@ -29,7 +29,7 @@ fi
 case "$1" in
   start)
         log_daemon_msg "Starting Home Assistant Automation" "mqtt_system"
-        start-stop-daemon --quiet --pidfile /var/run/mqtt_system.pid --name mqtt_system --exec $DAEMON --chdir /root/scripts -b --start -- system.py || echo -n " already running"
+        start-stop-daemon --quiet --pidfile /var/run/mqtt_system.pid --name mqtt_system --exec $DAEMON --chdir /root/scripts -b --start -- mqtt_system.js || echo -n " already running"
         log_end_msg $?
   ;;
   stop)

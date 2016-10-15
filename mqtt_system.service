@@ -6,7 +6,7 @@ OnFailure=restart
 [Service]
 Type=simple
 WorkingDirectory=/root/scripts
-ExecStart=/usr/bin/python system.py
+ExecStart=/usr/bin/node mqtt_system.js
 
 [Install]
 WantedBy=multi-user.target
